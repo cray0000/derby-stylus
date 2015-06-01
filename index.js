@@ -3,6 +3,7 @@ var autoprefixer = require('autoprefixer-core');
 var stylus  = require('stylus');
 var findup = require('findup-sync');
 var path = require('path');
+var postcss = require('postcss');
 
 module.exports = function(app) {
   app.styleExtensions.push('.styl');
@@ -66,7 +67,8 @@ function getStylusCompiler(app) {
     out.files.push(filename);
 
     // Add vendor prefixes
-    out.css = autoprefixer({ browsers: options.browsers }).process(out.css).css;
+    out.css = postcss([autoprefixer({ browsers: options.browsers })])
+        .process(out.css).css;
 
     // Minify
     if (options.compress) {
