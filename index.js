@@ -70,7 +70,7 @@ function getStylusCompiler(app) {
 
     // Minify
     if (options.compress) {
-      out.css = new CleanCSS().minify(out.css);
+      out.css = new CleanCSS().minify(out.css).styles;
     }
 
     return out;
